@@ -18,7 +18,7 @@ WallRock est une application bureau pour trier et changer ces fonds d'écran d'o
 ## Utilisation
 
 ### Lancement de l'application
-Cliquer deux fois sur le fichier **2** dans le dossier **dist**
+Cliquer deux fois sur le fichier **wallrock** dans le dossier **dist**
 
 Une fois l'application lancée, choisissez le dossier dans le lequel vous avez téléchargé ce projet 
 <!-- images pour expliciter la chose -->
