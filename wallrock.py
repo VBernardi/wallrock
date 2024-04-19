@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+import ctypes
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QWidget, QLabel, QScrollArea, QPushButton, QFileDialog
 from PyQt5.QtCore import Qt, QMimeData
 from PyQt5.QtGui import QPixmap, QDrag, QFont, QFontMetrics
@@ -18,6 +19,7 @@ class LabelImage(QLabel):
     def mousePressEvent(self, e):
         if e.buttons() == Qt.RightButton:
             self.main_window.update_large_image(self.image_path)
+            self.main_window.update_wallpaper(self.image_path)
     
     def mouseMoveEvent(self, e):
         if e.buttons() == Qt.LeftButton:
@@ -148,6 +150,9 @@ class MainWindow(QMainWindow):
         pixmap = QPixmap(image_path)
         pixmap = pixmap.scaled(500, 500, aspectRatioMode=True)
         self.selected_image_label.setPixmap(pixmap)
+    
+    def update_wallpaper(self, image_path):
+        ctypes.windll.user32.SystemParametersInfoW(20, 0, image_path, 3)
 
     def refresh_images(self):
         # on supprime les anciennes images
@@ -177,7 +182,7 @@ class MainWindow(QMainWindow):
         col += 1
 
         for i, folder in enumerate(folders):
-            if folder != ".config" and folder != "build" and folder != "dist" and folder != "venv":
+            if folder != ".config" and folder != "build" and folder != "dist" and folder != "venv" and folder != ".git":
                 folder_label = LabelFolder(folder, self)
                 folder_label.setFont(font)
 
